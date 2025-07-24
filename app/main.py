@@ -3,11 +3,22 @@ from typing import List, Optional
 from app.schemas import Entity, EntityCreate, EntityUpdate
 from app.models import storage
 
-app = FastAPI(title="Entity API", description="API для управления сущностями", version="1.0.0")
+app = FastAPI(
+    title="Entity API",
+    description="API для управления сущностями", version="1.0.0"
+    )
 
 
-@app.get("/entities", response_model=List[Entity], summary="Получить список сущностей")
-async def list_entities(name: Optional[str] = Query(None, description="Фильтр по части имени сущности")):
+@app.get(
+        "/entities",
+        response_model=List[Entity],
+        summary="Получить список сущностей"
+        )
+async def list_entities(
+    name: Optional[str] = Query(
+        None, description="Фильтр по части имени сущности"
+            )
+        ):
     """
     Получить список всех сущностей.
     Можно фильтровать по части имени с помощью параметра `name`.
@@ -16,8 +27,14 @@ async def list_entities(name: Optional[str] = Query(None, description="Филь�
     return entities
 
 
-@app.get("/entities/{entity_id}", response_model=Entity, summary="Получить одну сущность по ID")
-async def get_entity(entity_id: int = Path(..., description="ID сущности", gt=0)):
+@app.get(
+        "/entities/{entity_id}",
+        response_model=Entity,
+        summary="Получить одну сущность по ID"
+        )
+async def get_entity(
+    entity_id: int = Path(..., description="ID сущности", gt=0)
+        ):
     """
     Получить сущность по её уникальному идентификатору.
     """
@@ -27,7 +44,12 @@ async def get_entity(entity_id: int = Path(..., description="ID сущности
     return entity
 
 
-@app.post("/entities", response_model=Entity, status_code=201, summary="Создать новую сущность")
+@app.post(
+        "/entities",
+        response_model=Entity,
+        status_code=201,
+        summary="Создать новую сущность"
+        )
 async def create_entity(entity_create: EntityCreate):
     """
     Создать новую сущность с указанными данными.
@@ -36,7 +58,11 @@ async def create_entity(entity_create: EntityCreate):
     return entity
 
 
-@app.put("/entities/{entity_id}", response_model=Entity, summary="Обновить данные сущности")
+@app.put(
+        "/entities/{entity_id}",
+        response_model=Entity,
+        summary="Обновить данные сущности"
+        )
 async def update_entity(
     entity_id: int = Path(..., description="ID сущности для обновления", gt=0),
     entity_update: EntityUpdate = ...
@@ -51,8 +77,14 @@ async def update_entity(
     return updated_entity
 
 
-@app.delete("/entities/{entity_id}", status_code=204, summary="Удалить сущность")
-async def delete_entity(entity_id: int = Path(..., description="ID сущности для удаления", gt=0)):
+@app.delete(
+        "/entities/{entity_id}",
+        status_code=204,
+        summary="Удалить сущность"
+        )
+async def delete_entity(
+    entity_id: int = Path(..., description="ID сущности для удаления", gt=0)
+        ):
     """
     Удалить сущность по её ID.
     """
