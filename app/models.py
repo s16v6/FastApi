@@ -10,7 +10,9 @@ class EntityStorage:
     def list(self, name_filter: str = None):
         entities = list(self._data.values())
         if name_filter:
-            entities = [e for e in entities if name_filter.lower() in e.name.lower()]
+            entities = (
+                [e for e in entities if name_filter.lower() in e.name.lower()]
+                )
         return entities
 
     def get(self, entity_id: int) -> Entity:
