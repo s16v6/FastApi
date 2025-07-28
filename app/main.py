@@ -21,7 +21,7 @@ async def list_entities(
         ):
     """
     Получить список всех сущностей.
-    Можно фильтровать по части имени с помощью параметра `name`.
+    Можно фильтровать по части имени с помощью параметра `name`..
     """
     entities = storage.list(name_filter=name)
     return entities
